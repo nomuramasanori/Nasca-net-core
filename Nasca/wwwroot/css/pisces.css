@@ -1,0 +1,117 @@
+@CHARSET "UTF-8";
+
+* {
+	margin:0;
+	padding:0;
+}
+
+html, body {
+	position:relative;
+	height:100%;
+	width:100%;
+/* 	overflow-x:hidden; */
+/* 	overflow-y:hidden; */
+}
+
+#header{
+	position:relative;
+	display: table;
+	width:100%;
+	height:40px;
+	background-color:rgba(40,40,40,0.9);
+	z-index: 1;
+}
+#logoArea{
+	height:inherit;
+	width:70px;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+}
+#logo{
+	height:80%;
+}
+#title{
+	display: table-cell;
+	vertical-align: middle;
+	text-align: left;
+}
+h1{
+	font-family: 'Dancing Script', cursive;
+	font-size:xx-large;
+	color: white;
+}
+
+#nodeList{
+	width:200px;
+	height:calc(100% - 40px);
+	float:left;
+	background-color:rgba(230,250,255,0.9);
+	overflow-x:auto;
+	overflow-y:auto;
+	position:relative;
+	z-index: 1;
+}
+.vakata-context{
+	z-index: 2;
+}
+
+#drawingPaper{
+	position:absolute;
+	width:100%;
+	height:100%;
+	left:0px;
+	top:0px;
+	background-color:white;
+	z-index: 0;
+	background-image: url('../images/hummingbird.png');
+	background-repeat: no-repeat;
+	background-size:30% auto;
+	background-position:bottom right;
+}
+
+
+
+#contents {
+	z-index: 0;
+	font-size: 16px;
+}
+#modal-open {
+	color: #cc0000;
+}
+/* モーダル コンテンツエリア */
+#modal-main {
+	display: none;
+	width: 500px;
+	height: 300px;
+	margin: 0;
+	padding: 0;
+	background-color: #ffffff;
+	color: #666666;
+	position:fixed;
+	z-index: 2;
+}
+/* モーダル 背景エリア */
+#modal-bg {
+	display:none;
+	width:100%;
+	height:100%;
+	background-color: rgba(0,0,0,0.5);
+	position:fixed;
+	top:0;
+	left:0;
+	z-index: 1;
+}
+
+/*jstreeのrootノード*/
+#jstree_demo_div{
+	position:relative;
+	left: -18px;
+}
+.jstree-node {
+    font-size: 10pt;
+    font-family: 'Noto Sans Japanese';
+}
+#root_anchor>i.jstree-checkbox{
+	display:none;
+}
