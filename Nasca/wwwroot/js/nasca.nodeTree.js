@@ -38,10 +38,10 @@ $(function(){
 				jstree.open_node("#root");
 			});
 			
-			$(document).on('dnd_start.vakata', function (e, data) {
-			    dndCounter = 0;
-			    dndNodeLength = data.data.nodes.length;
-			});
+            $(document).on('dnd_start.vakata', function (e, data) {
+                dndCounter = 0;
+                dndNodeLength = data.data.nodes.length;
+            });
 
 			//イベント追加
 			$('#jstree_demo_div').on('move_node.jstree', function(e, data) {
@@ -72,129 +72,129 @@ $(function(){
 		
 		var create = function(data){
 			//ツリー生成
-			$("#jstree_demo_div").jstree({
-				core : {
-					"themes" : {
-						"variant" : "small"
-					},
-					"data" : data,
-					"dblclick_toggle" : false,
-					"check_callback" : function(operation, node, node_parent, node_position, more) {
-					    if (operation === "move_node") {
-					        if (more.pos === "i" || more.core) {
-					        	if(node_parent.original.hasDependency){
-					        		return false;
-					        	}else{
-					        		return true;
-					        	}
-					        }
-					    }
+            $("#jstree_demo_div").jstree({
+                core: {
+                    "themes": {
+                        "variant": "small"
+                    },
+                    "data": data,
+                    "dblclick_toggle": false,
+                    "check_callback": function (operation, node, node_parent, node_position, more) {
+                        if (operation === "move_node") {
+                            if (more.pos === "i" || more.core) {
+                                if (node_parent.original.hasDependency) {
+                                    return false;
+                                } else {
+                                    return true;
+                                }
+                            }
+                        }
 
-					    return false; //allow all other operations
-					}
-				},
-			    plugins : [ "checkbox", "sort", "types", "contextmenu", "dnd"],
-			    checkbox : {
-			    	three_state : false,
-			    	cascade : ""
-			    },
-				contextmenu:{
-					"select_node":false,
-				    "items": function($node) {
-				        var tree = $("#tree").jstree(true);
-				        return {
-				        		"Create": {
-				        		"separator_before": false,
-				        		"separator_after": false,
-				        		"label": "Create",
-				        		"action": function (obj) {
-				        			nasca.utility.showModal(
-			                    		generateHtmlNodeRegister("Create", $node),
-			                    		function(){
-											nasca.utility.ajaxPost(
-												"NodeRegister/insert",
-												{
-													"parentid": $("#parentid").val(),
-													"id": $("#id").val(),
-													"name": $("#name").val(),
-													"type": $("#type  option:selected").val(),
-													"remark": $("[name=remark]").val()
-												},
-												refreshJstree
-											);
-										},
-			                    		null
-			                    	);
-				                }
-				            },
-				            "Edit": {
-				            	"_disabled" : function(){if($node.id == "root") return true; else return false;},
-				                "separator_before": false,
-				                "separator_after": false,
-				                "label": "Edit",
-				                "action": function (obj) { 
-				                	nasca.utility.showModal(
-				                    		generateHtmlNodeRegister("Edit", $node),
-				                    		function(){
-												nasca.utility.ajaxPost(
-													"NodeRegister/update",
-													{
-														"parentid": $node.parent,
-														"originalid": $node.id,
-														"id": $("#id").val(),
-														"name": $("#name").val(),
-														"type": $("#type  option:selected").val(),
-														"remark": $("[name=remark]").val()
-													},
-													refreshJstree
-												);
-											},
-				                    		null
-				                    	);
-				                }
-				            },                         
-				            "Remove": {
-				            	"_disabled" : function(){if($node.id == "root") return true; else return false;},
-				                "separator_before": false,
-				                "separator_after": false,
-				                "label": "Remove",
-				                "action": function (obj) { 
-				                	nasca.utility.showModal(
-				                    		"Are you sure?",
-				                    		function(){
-												nasca.utility.ajaxPost(
-													"NodeRegister/delete",
-													{
-														"parentid": $node.parent,
-														"id": $node.id.replace($node.parent + ".", "")
-													},
-													refreshJstree
-												);
-											},
-				                    		null
-				                    	);
-				                }
-				            },
-				            "All select": {
-				                "separator_before": false,
-				                "separator_after": false,
-				                "label": "All select",
-				                "action": function (obj) {
-				                	selectAllLeaf($node);
-				                }
-				            },
-				            "All deselect": {
-				                "separator_before": false,
-				                "separator_after": false,
-				                "label": "All deselect",
-				                "action": function (obj) {
-				                	deselectAll($node);
-				                }
-				            }
-				        };
-				    }
-				}
-			});
+                        return false; //allow all other operations
+                    }
+                },
+                plugins: ["checkbox", "sort", "types", "contextmenu", "dnd"],
+                checkbox: {
+                    three_state: false,
+                    cascade: ""
+                },
+                contextmenu: {
+                    "select_node": false,
+                    "items": function ($node) {
+                        var tree = $("#tree").jstree(true);
+                        return {
+                            "Create": {
+                                "separator_before": false,
+                                "separator_after": false,
+                                "label": "Create",
+                                "action": function (obj) {
+                                    nasca.utility.showModal(
+                                        generateHtmlNodeRegister("Create", $node),
+                                        function () {
+                                            nasca.utility.ajaxPost(
+                                                "NodeRegister/insert",
+                                                {
+                                                    "parentid": $("#parentid").val(),
+                                                    "id": $("#id").val(),
+                                                    "name": $("#name").val(),
+                                                    "type": $("#type  option:selected").val(),
+                                                    "remark": $("[name=remark]").val()
+                                                },
+                                                refreshJstree
+                                            );
+                                        },
+                                        null
+                                    );
+                                }
+                            },
+                            "Edit": {
+                                "_disabled": function () { if ($node.id == "root") return true; else return false; },
+                                "separator_before": false,
+                                "separator_after": false,
+                                "label": "Edit",
+                                "action": function (obj) {
+                                    nasca.utility.showModal(
+                                        generateHtmlNodeRegister("Edit", $node),
+                                        function () {
+                                            nasca.utility.ajaxPost(
+                                                "NodeRegister/update",
+                                                {
+                                                    "parentid": $node.parent,
+                                                    "originalid": $node.id,
+                                                    "id": $("#id").val(),
+                                                    "name": $("#name").val(),
+                                                    "type": $("#type  option:selected").val(),
+                                                    "remark": $("[name=remark]").val()
+                                                },
+                                                refreshJstree
+                                            );
+                                        },
+                                        null
+                                    );
+                                }
+                            },
+                            "Remove": {
+                                "_disabled": function () { if ($node.id == "root") return true; else return false; },
+                                "separator_before": false,
+                                "separator_after": false,
+                                "label": "Remove",
+                                "action": function (obj) {
+                                    nasca.utility.showModal(
+                                        "Are you sure?",
+                                        function () {
+                                            nasca.utility.ajaxPost(
+                                                "NodeRegister/delete",
+                                                {
+                                                    "parentid": $node.parent,
+                                                    "id": $node.id.replace($node.parent + ".", "")
+                                                },
+                                                refreshJstree
+                                            );
+                                        },
+                                        null
+                                    );
+                                }
+                            },
+                            "All select": {
+                                "separator_before": false,
+                                "separator_after": false,
+                                "label": "All select",
+                                "action": function (obj) {
+                                    selectAllLeaf($node);
+                                }
+                            },
+                            "All deselect": {
+                                "separator_before": false,
+                                "separator_after": false,
+                                "label": "All deselect",
+                                "action": function (obj) {
+                                    deselectAll($node);
+                                }
+                            }
+                        };
+                    }
+                }
+            });
 			
 			$.jstree.defaults.checkbox.three_state = false;
 			$.jstree.defaults.checkbox.cascade = "";
@@ -211,6 +211,7 @@ $(function(){
                 success: function (data, textStatus) {
                     jstree.settings.core.data = data;
                     jstree.refresh();
+                    //jstree.refresh_node();
                 }
             });
         };
@@ -271,9 +272,9 @@ $(function(){
 			}
 		};
 		
-		var select = function(nodeID){
-			jstree.select_node(nodeID);
-		}
+        var select = function (nodeID) {
+            jstree.select_node(nodeID);
+        };
 		
 		var selectChild = function(nodeID){
 			//複数の子ノードが存在する場合ひとつずつchangedイベントが発生し不具合となるため第2引数にtrueを指定しイベントの発生を抑止します

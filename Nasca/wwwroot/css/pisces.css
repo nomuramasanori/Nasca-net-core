@@ -106,7 +106,7 @@ h1{
 /*jstreeのrootノード*/
 #jstree_demo_div{
 	position:relative;
-	left: -18px;
+	/*left: -18px;*/
 }
 .jstree-node {
     font-size: 10pt;
